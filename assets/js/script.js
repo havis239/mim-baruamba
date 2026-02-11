@@ -15,63 +15,28 @@
    File ini hanya berisi fungsi interaktif (navbar, scroll, form, dll).
    ═════════════════════════════════════════════════ */
 
-// ═══════════ PAGE TRANSITION ═══════════
+// ═══════════ MOBILE VIEWPORT HEIGHT FIX ═══════════
+// Fix for iOS Safari 100vh issue
 (function() {
   'use strict';
   
-  // Check if we're coming from a page transition
-  const isPageTransition = sessionStorage.getItem('pageTransition');
-  
-  if (isPageTransition === 'true') {
-    // Remove flag
-    sessionStorage.removeItem('pageTransition');
-    
-    // Fade in on page load
-    document.body.style.opacity = '0';
-    document.body.style.transform = 'translateY(10px)';
-    document.body.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    
-    // Trigger fade in after a brief delay
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.body.style.opacity = '1';
-        document.body.style.transform = 'translateY(0)';
-      });
-    });
+  function setAppHeight() {
+    const doc = document.documentElement;
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`);
   }
+  
+  window.addEventListener('resize', setAppHeight);
+  window.addEventListener('orientationchange', setAppHeight);
+  setAppHeight();
 })();
 
-// ═══════════ INTERNAL LINK TRANSITIONS ═══════════
-document.addEventListener('DOMContentLoaded', () => {
-  'use strict';
-  
-  // Select all internal navigation links
-  const navLinks = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not([href^="http"]):not([target="_blank"])');
-  
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      const href = this.getAttribute('href');
-      
-      // Only apply transition to valid internal links
-      if (href && !href.startsWith('#') && !href.includes('mailto:') && !href.includes('tel:') && this.target !== '_blank') {
-        e.preventDefault();
-        
-        // Set transition flag
-        sessionStorage.setItem('pageTransition', 'true');
-        
-        // Add fade out effect
-        document.body.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        document.body.style.opacity = '0';
-        document.body.style.transform = 'translateY(-10px)';
-        
-        // Navigate after animation
-        setTimeout(() => {
-          window.location.href = href;
-        }, 300);
-      }
-    });
-  });
-});
+// ═══════════ PAGE TRANSITION DISABLED FOR NAVBAR PERSISTENCE ═══════════
+// Page transition has been disabled to keep navbar fixed and persistent
+// across page navigation without flickering or refresh effects
+
+// ═══════════ INTERNAL LINK NAVIGATION (NO TRANSITION) ═══════════
+// Direct navigation without page transition for instant navbar persistence
+// Links will navigate immediately without animation to maintain navbar fixed state
 
 // ═══════════ SMOOTH SCROLL FOR ANCHOR LINKS ═══════════
 document.addEventListener('DOMContentLoaded', () => {
@@ -148,6 +113,87 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // ═══════════ DROPDOWN MENU ═══════════
+    const dropdowns = document.querySelectorAll('.nav-links .dropdown');
+    let dropdownTimeout = null;
+    
+    dropdowns.forEach(dropdown => {
+      const dropdownLink = dropdown.querySelector('a');
+      const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+      
+      if (dropdownLink && dropdownMenu) {
+        // Prevent default link behavior on dropdown parent
+        dropdownLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          // On mobile or touch devices, toggle dropdown
+          if (window.innerWidth <= 900 || ('ontouchstart' in window)) {
+            // Close other dropdowns
+            dropdowns.forEach(d => {
+              if (d !== dropdown) {
+                d.classList.remove('active');
+              }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
+          }
+        });
+        
+        // Desktop hover behavior with delay
+        dropdown.addEventListener('mouseenter', () => {
+          if (window.innerWidth > 900) {
+            clearTimeout(dropdownTimeout);
+            dropdown.classList.add('active');
+          }
+        });
+        
+        dropdown.addEventListener('mouseleave', () => {
+          if (window.innerWidth > 900) {
+            dropdownTimeout = setTimeout(() => {
+              dropdown.classList.remove('active');
+            }, 300);
+          }
+        });
+        
+        // Keep dropdown open when hovering over menu items
+        dropdownMenu.addEventListener('mouseenter', () => {
+          clearTimeout(dropdownTimeout);
+        });
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown')) {
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+    
+    // Close dropdown on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+    
+    // Close dropdowns when window is resized to desktop
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 900) {
+          dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+        }
+      }, 250);
+    });
+
     // ═══════════ MOBILE NAV ═══════════
     const navToggle = document.getElementById('navToggle');
     const navMobile = document.getElementById('navMobile');
@@ -158,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (navMobile && overlayMob) {
           navMobile.classList.remove('open'); 
           overlayMob.classList.remove('open'); 
+          navToggle.classList.remove('active');
           document.body.style.overflow = '';
         }
       }
@@ -166,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (navMobile && overlayMob) {
           navMobile.classList.add('open'); 
           overlayMob.classList.add('open'); 
+          navToggle.classList.add('active');
           document.body.style.overflow = 'hidden';
         }
       }
@@ -181,11 +229,33 @@ document.addEventListener('DOMContentLoaded', () => {
       
       overlayMob.addEventListener('click', closeMobile);
       
-      // Close mobile menu when clicking on a link
-      navMobile.querySelectorAll('a').forEach(a => {
+      // Close mobile menu when clicking on a link (except dropdown toggle)
+      navMobile.querySelectorAll('a:not(.mobile-dropdown-toggle)').forEach(a => {
         a.addEventListener('click', () => {
           setTimeout(closeMobile, 150);
         });
+      });
+      
+      // Mobile dropdown toggle
+      const mobileDropdowns = navMobile.querySelectorAll('.mobile-dropdown');
+      mobileDropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.mobile-dropdown-toggle');
+        if (toggle) {
+          toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Close other dropdowns
+            mobileDropdowns.forEach(d => {
+              if (d !== dropdown) {
+                d.classList.remove('active');
+              }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('active');
+          });
+        }
       });
       
       // Close on ESC key

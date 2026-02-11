@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         MI Muhammadiyah Baruamba
       </a>
       <ul class="nav-links">
-        <li><a href="../index.html" class="active">Beranda</a></li>
+        <li><a href="../index.html">Beranda</a></li>
         <li class="dropdown">
           <a href="tentang.html">Profil</a>
           <div class="dropdown-menu">
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="galeri.html">Galeri</a></li>
         <li><a href="berita.html">Berita</a></li>
         <li><a href="kontak.html">Kontak</a></li>
+        <li><a href="ppdb.html">PPDB</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -39,15 +40,22 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="overlay-mobile" id="overlayMobile"></div>
 <div class="nav-menu-mobile" id="navMobile">
   <a href="../index.html"><i class="fas fa-home"></i> Beranda</a>
-  <a href="tentang.html"><i class="fas fa-info-circle"></i> Profil</a>
-  <a href="tentang.html" style="padding-left:30px;font-size:0.9rem">↳ Tentang Kami</a>
-  <a href="fasilitas.html" style="padding-left:30px;font-size:0.9rem">↳ Fasilitas</a>
-  <a href="guru.html" style="padding-left:30px;font-size:0.9rem">↳ Guru & Staff</a>
+  <div class="mobile-dropdown">
+    <a href="#" class="mobile-dropdown-toggle"><i class="fas fa-info-circle"></i> Profil <i class="fas fa-chevron-down"></i></a>
+    <div class="mobile-dropdown-menu">
+      <div>
+        <a href="tentang.html"><i class="fas fa-arrow-right"></i> Tentang Kami</a>
+        <a href="fasilitas.html"><i class="fas fa-arrow-right"></i> Fasilitas</a>
+        <a href="guru.html"><i class="fas fa-arrow-right"></i> Guru & Staff</a>
+      </div>
+    </div>
+  </div>
   <a href="program.html"><i class="fas fa-graduation-cap"></i> Program</a>
   <a href="prestasi.html"><i class="fas fa-trophy"></i> Prestasi</a>
-  <a href="berita.html"><i class="fas fa-newspaper"></i> Berita</a>
   <a href="galeri.html"><i class="fas fa-images"></i> Galeri</a>
+  <a href="berita.html"><i class="fas fa-newspaper"></i> Berita</a>
   <a href="kontak.html"><i class="fas fa-envelope"></i> Kontak</a>
+  <a href="ppdb.html"><i class="fas fa-user-plus"></i> PPDB</a>
 </div>
   `;
 
@@ -60,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="footer-logo"><img src="../assets/images/favicon.svg" alt="Logo MI Baruamba" class="nav-logo-img"> MI Muhammadiyah Baruamba</div>
         <p>Lembaga pendidikan Islam berkualitas yang membentuk generasi beriman, berilmu, dan berakhlak mulia di bawah naungan Persyarikatan Muhammadiyah.</p>
         <div class="social-links">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://r.search.yahoo.com/_ylt=AwrgLmzmXIZpgYIFI1JXNyoA;_ylu=Y29sbwNncTEEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1771622886/RO=10/RU=https%3a%2f%2fwww.facebook.com%2fmimuhammadiyah.baruamba%2f/RK=2/RS=srZVX51kd2lTzwUalhH_7fKDWkE-" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="https://www.instagram.com/mimuhbaruamba?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           <a href="https://wa.me/6282324114647" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
@@ -89,7 +97,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <ul>
           <li><i class="fas fa-map-marker-alt"></i> Baruamba, Bumiayu, Brebes, Jateng</li>
           <li><i class="fas fa-phone"></i> +6282324114647</li>
-          <li><i class="fas fa-envelope"></i> mimuhbaruamba@gmail.com</li>
         </ul>
       </div>
     </div>
@@ -120,15 +127,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // ─── SET ACTIVE LINK ───
   // Set active menu berdasarkan URL saat ini
   setTimeout(() => {
-    const currentPage = window.location.pathname.split('/').pop();
-    const navLinks = document.querySelectorAll('.nav-links a, .nav-menu-mobile a');
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-links a:not(.dropdown-menu a), .nav-menu-mobile > a');
     
     navLinks.forEach(link => {
+      link.classList.remove('active');
       const href = link.getAttribute('href');
-      if (href === currentPage || (currentPage === '' && href === '../index.html')) {
+      
+      // Check for exact match or index.html variants
+      if (href === currentPage || 
+          (currentPage === 'index.html' && href === '../index.html') ||
+          (currentPage === '' && (href === '../index.html' || href === 'index.html'))) {
         link.classList.add('active');
-      } else {
-        link.classList.remove('active');
+      }
+    });
+    
+    // Special handling for dropdown menu items
+    const dropdownLinks = document.querySelectorAll('.dropdown-menu a');
+    dropdownLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPage) {
+        link.closest('.dropdown').querySelector('a').classList.add('active');
       }
     });
   }, 10);

@@ -24,7 +24,6 @@
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
 <nav class="nav" id="nav">
   <div class="container">
     <div class="nav-inner">
@@ -45,7 +44,9 @@
         <li><a href="pages/program.html">Program</a></li>
         <li><a href="pages/prestasi.html">Prestasi</a></li>
         <li><a href="pages/galeri.html">Galeri</a></li>
+        <li><a href="pages/berita.html">Berita</a></li>
         <li><a href="pages/kontak.html">Kontak</a></li>
+        <li><a href="pages/ppdb.html" class="btn btn-primary btn-sm"><i class="fas fa-user-plus"></i> PPDB</a></li>
       </ul>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -54,21 +55,27 @@
   </div>
 </nav>
 
-<!-- Mobile Menu -->
 <div class="overlay-mobile" id="overlayMobile"></div>
 <div class="nav-menu-mobile" id="navMobile">
   <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
-  <a href="pages/tentang.html"><i class="fas fa-info-circle"></i> Profil</a>
-  <a href="pages/tentang.html" style="padding-left:30px;font-size:0.9rem">↳ Tentang Kami</a>
-  <a href="pages/fasilitas.html" style="padding-left:30px;font-size:0.9rem">↳ Fasilitas</a>
-  <a href="pages/guru.html" style="padding-left:30px;font-size:0.9rem">↳ Guru & Staff</a>
+  <div class="mobile-dropdown">
+    <a href="#" class="mobile-dropdown-toggle"><i class="fas fa-info-circle"></i> Profil <i class="fas fa-chevron-down"></i></a>
+    <div class="mobile-dropdown-menu">
+      <div>
+        <a href="pages/tentang.html"><i class="fas fa-arrow-right"></i> Tentang Kami</a>
+        <a href="pages/fasilitas.html"><i class="fas fa-arrow-right"></i> Fasilitas</a>
+        <a href="pages/guru.html"><i class="fas fa-arrow-right"></i> Guru & Staff</a>
+      </div>
+    </div>
+  </div>
   <a href="pages/program.html"><i class="fas fa-graduation-cap"></i> Program</a>
   <a href="pages/prestasi.html"><i class="fas fa-trophy"></i> Prestasi</a>
   <a href="pages/galeri.html"><i class="fas fa-images"></i> Galeri</a>
+  <a href="pages/berita.html"><i class="fas fa-newspaper"></i> Berita</a>
   <a href="pages/kontak.html"><i class="fas fa-envelope"></i> Kontak</a>
+   <a href="pages/ppdb.html"><i class="fas fa-user-plus"></i> PPDB</a>
 </div>
 
-<!-- ─── HERO ─── -->
 <section class="hero" id="home" style="background: linear-gradient(rgba(26, 92, 69, 0.7), rgba(26, 92, 69, 0.7)), url('assets/images/herosec.png'); background-size: cover; background-position: center; background-attachment: fixed;">
   <div class="hero-content">
     <div class="hero-badge"><i class="fas fa-award"></i> Terakreditasi B &nbsp;|&nbsp; Lembaga Pendidikan Terpercaya</div>
@@ -76,13 +83,12 @@
     <p>Membentuk Generasi Beriman, Berilmu, dan Berakhlak Mulia</p>
     <div class="hero-btns">
       <a href="pages/tentang.html" class="btn btn-primary"><i class="fas fa-info-circle"></i> Tentang Kami</a>
-      <a href="pages/kontak.html" class="btn btn-outline"><i class="fas fa-user-plus"></i> Daftar Sekarang</a>
+      <a href="pages/ppdb.html" class="btn btn-outline"><i class="fas fa-user-plus"></i> Daftar Sekarang</a>
     </div>
   </div>
   <div class="hero-scroll"><a href="#stats"><i class="fas fa-chevron-down"></i></a></div>
 </section>
 
-<!-- ─── STATS ─── -->
 <section class="stats" id="stats">
   <div class="container">
     <div class="stats-grid">
@@ -110,7 +116,6 @@
   </div>
 </section>
 
-<!-- ─── QUICK LINKS ─── -->
 <section class="section">
   <div class="container">
     <div class="section-header reveal">
@@ -141,7 +146,7 @@
       </a>
       <a href="pages/berita.html" class="program-card reveal" style="text-decoration: none; color: inherit;">
         <div class="program-icon"><i class="fas fa-newspaper"></i></div>
-        <h3>Berita & Kegiatan</h3>
+        <h3>Berita & Informasi</h3>
         <p>Informasi terkini seputar kegiatan madrasah</p>
       </a>
       <a href="pages/kontak.html" class="program-card reveal" style="text-decoration: none; color: inherit;">
@@ -153,7 +158,64 @@
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Berita & Informasi Terbaru</h2>
+      <div class="line"></div>
+      <p>Update terkini tentang kegiatan dan prestasi MI Muhammadiyah Baruamba</p>
+    </div>
+    <div class="news-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 40px;">
+      
+      <!-- News Item 1 -->
+      <div class="news-card reveal" style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); transition: transform 0.35s ease, box-shadow 0.35s ease; display: flex; flex-direction: column; height: 100%;">
+        <div style="position: relative; width: 100%; height: 200px; overflow: hidden; background: linear-gradient(135deg, #1a5c45, #2d8a69);">
+          <img src="assets/images/ppd.jpeg" alt="Penerimaan Siswa Baru" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+          <span style="position: absolute; top: 12px; left: 12px; background: rgba(201, 168, 76, 0.95); color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Pengumuman</span>
+          <span style="position: absolute; bottom: 12px; right: 12px; background: rgba(255, 255, 255, 0.95); color: #1a5c45; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;">5 Feb 2026</span>
+        </div>
+        <div style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
+          <h3 style="font-size: 1.1rem; color: #2a2a2a; margin-bottom: 12px; font-weight: 600; line-height: 1.4;">Pembukaan Pendaftaran Siswa Baru 2026/2027</h3>
+          <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px; flex: 1;">MI Muhammadiyah Baruamba resmi membuka pendaftaran siswa baru tahun ajaran 2026/2027 dengan kuota terbatas dan fasilitas pembelajaran lengkap.</p>
+          <a href="pages/berita.html" style="color: #1a5c45; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Baca Selengkapnya <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+      </div>
+
+      <!-- News Item 2 -->
+      <div class="news-card reveal" style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); transition: transform 0.35s ease, box-shadow 0.35s ease; display: flex; flex-direction: column; height: 100%;">
+        <div style="position: relative; width: 100%; height: 200px; overflow: hidden; background: linear-gradient(135deg, #1a5c45, #2d8a69);">
+          <img src="assets/images/perjusa.jpeg" alt="Perkemahan Jumat Sabtu" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+          <span style="position: absolute; top: 12px; left: 12px; background: rgba(201, 168, 76, 0.95); color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Kegiatan</span>
+          <span style="position: absolute; bottom: 12px; right: 12px; background: rgba(255, 255, 255, 0.95); color: #1a5c45; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;">16 Jan 2026</span>
+        </div>
+        <div style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
+          <h3 style="font-size: 1.1rem; color: #2a2a2a; margin-bottom: 12px; font-weight: 600; line-height: 1.4;">Perkemahan Jumat Sabtu: Membangun Kebersamaan</h3>
+          <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px; flex: 1;">Kegiatan Perjusa mengajak siswa belajar nilai-nilai kerjasama, tanggung jawab, dan kepemimpinan melalui aktivitas outdoor yang menyenangkan.</p>
+          <a href="pages/berita.html" style="color: #1a5c45; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Baca Selengkapnya <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+      </div>
+
+      <!-- News Item 3 -->
+      <div class="news-card reveal" style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); transition: transform 0.35s ease, box-shadow 0.35s ease; display: flex; flex-direction: column; height: 100%;">
+        <div style="position: relative; width: 100%; height: 200px; overflow: hidden; background: linear-gradient(135deg, #1a5c45, #2d8a69);">
+          <img src="assets/images/hw.jpeg" alt="Hizbul Wathan" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
+          <span style="position: absolute; top: 12px; left: 12px; background: rgba(201, 168, 76, 0.95); color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Kegiatan</span>
+          <span style="position: absolute; bottom: 12px; right: 12px; background: rgba(255, 255, 255, 0.95); color: #1a5c45; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600;">27 Sep 2025</span>
+        </div>
+        <div style="padding: 20px; display: flex; flex-direction: column; flex: 1;">
+          <h3 style="font-size: 1.1rem; color: #2a2a2a; margin-bottom: 12px; font-weight: 600; line-height: 1.4;">Latihan Hizbul Wathan: Membentuk Kepemimpinan</h3>
+          <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px; flex: 1;">Kegiatan rutin Hizbul Wathan membentuk karakter kepemimpinan, kemandirian, dan jiwa sosial siswa melalui berbagai aktivitas edukatif.</p>
+          <a href="pages/berita.html" style="color: #1a5c45; font-weight: 600; text-decoration: none; font-size: 0.9rem;">Baca Selengkapnya <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align: center; margin-top: 50px;">
+      <a href="pages/berita.html" class="btn btn-primary"><i class="fas fa-newspaper"></i> Lihat Semua Berita</a>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -161,7 +223,7 @@
         <div class="footer-logo"><img src="assets/images/favicon.svg" alt="Logo MI Baruamba" class="nav-logo-img"> MI Muhammadiyah Baruamba</div>
         <p>Lembaga pendidikan Islam berkualitas yang membentuk generasi beriman, berilmu, dan berakhlak mulia di bawah naungan Persyarikatan Muhammadiyah.</p>
         <div class="social-links">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://r.search.yahoo.com/_ylt=AwrgLmzmXIZpgYIFI1JXNyoA;_ylu=Y29sbwNncTEEcG9zAzEEdnRpZAMEc2VjA3Ny/RV=2/RE=1771622886/RO=10/RU=https%3a%2f%2fwww.facebook.com%2fmimuhammadiyah.baruamba%2f/RK=2/RS=srZVX51kd2lTzwUalhH_7fKDWkE-" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="https://www.instagram.com/mimuhbaruamba?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
           <a href="https://wa.me/6282324114647" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
@@ -189,7 +251,6 @@
         <ul>
           <li><i class="fas fa-map-marker-alt"></i> Baruamba, Bumiayu, Brebes, Jateng</li>
           <li><i class="fas fa-phone"></i> 0852-2892-9488</li>
-          <li><i class="fas fa-envelope"></i> mimuhbaruamba@gmail.com</li>
         </ul>
       </div>
     </div>
